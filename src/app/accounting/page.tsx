@@ -5,7 +5,7 @@ import Link from 'next/link';
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
 import { Transaction } from '../types/index';
-import '../styles/AccountingPage.css';
+import '../styles/accounting_page.css';
 
 const AccountingPage: React.FC = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);

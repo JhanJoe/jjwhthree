@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import './styles/HomePage.css';
-import './styles/AccountingPage.css';
+import './styles/page.css';
+import './styles/accounting_page.css';
 
 
 const HomePage: React.FC = () => { 
