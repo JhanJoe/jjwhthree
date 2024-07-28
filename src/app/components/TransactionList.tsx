@@ -15,7 +15,7 @@ const TransactionList: React.FC<Props> = ({ transactions, onDeleteTransaction })
             {transactions.map((transaction) => (
             <li key={transaction.id}>
                 <span className="date">{transaction.date}</span>
-                <span className="amount" style={{ color: transaction.type === 'income' ? 'green' : 'red' }}>
+                <span className="amount" style={{ color: transaction.type === 'income' ? '#46eb34' : 'red' }}>
                 {transaction.type === 'income' ? '+' : '-'}${transaction.amount}
                 </span>
                 <span className="description">{transaction.description}</span>
