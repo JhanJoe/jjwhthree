@@ -14,7 +14,6 @@ const AccountingPage: React.FC = () => {
     useEffect(() => {
         if (!initialized.current) {
             const savedTransactions = localStorage.getItem('transactions');
-            console.log('Loaded from localStorage:', savedTransactions);
             if (savedTransactions) {
                 setTransactions(JSON.parse(savedTransactions));
         }

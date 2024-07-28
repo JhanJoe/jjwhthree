@@ -1,5 +1,5 @@
 import React from 'react';
-import './globals.css'; // 如果您有全局 CSS
+import './globals.css'; 
 
 export const metadata = {
   title: '記帳應用',
@@ -21,22 +21,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
-// import HomePage from './page'; 
-// import AccountingPage from './accounting/page'; 
-
-// function App() {
-//   return (
-//     <Router>  
-//       <div className="App">
-//         <Routes>  
-//           <Route path="/" element={<HomePage />} />
-//           <Route path="/accounting" element={<AccountingPage />} /> 
-//         </Routes>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
