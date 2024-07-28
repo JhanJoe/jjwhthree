@@ -1,0 +1,92 @@
+.accounting-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+}
+
+.transaction-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.transaction-form select,
+.transaction-form input,
+.transaction-form button {
+    height: 40px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border-radius: 5px;
+    border: none;
+}
+
+
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.transaction-list ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.transaction-list li {
+    display: flex;
+    justify-content: space-between  ;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    width: 100%; 
+    padding: 10px 0; 
+    font-size: 20px;
+}
+
+.transaction-list li span {
+    flex: 1;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.transaction-list li .date {
+    flex: 1;
+    text-align: left;
+}
+
+.transaction-list li span.amount {
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.transaction-list li button {
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border:none;
+    padding:10px;
+}
+
+
+.accounting-page-total {
+    font-size: 20px;
+}
+
+.return-home button {
+    font-size: 16px;
+    border-radius: 5px;
+    border:none;
+    padding:10px;
+    margin-top:10px;
+    font-weight: bold;
+}
