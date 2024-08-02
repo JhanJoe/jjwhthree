@@ -6,44 +6,60 @@ import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
 import { Transaction } from '../types/index';
 import '../styles/accounting_page.css';
+import { useRouter } from "next/navigation";
+import { auth, onAuthStateChanged, db, collection, addDoc, getDocs, query, where, deleteDoc, doc, orderBy, User } from "../../../firebase-config";
 
 const AccountingPage: React.FC = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const initialized = useRef(false);
 
-    useEffect(() => {
-        if (!initialized.current) {
-            const savedTransactions = localStorage.getItem('transactions');
-            if (savedTransactions) {
-                setTransactions(JSON.parse(savedTransactions));
-        }
-            initialized.current = true;
-    }
-    }, []);
+    const router = useRouter();
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        if (initialized.current) {
-            localStorage.setItem('transactions', JSON.stringify(transactions));
-        }
-    }, [transactions]);
-
-    const handleAddTransaction = (newTransaction: Omit<Transaction, 'id' | 'date'>) => {
-        const transaction: Transaction = {
-            ...newTransaction,
-            id: Date.now(),
-            date: new Date().toISOString().split('T')[0]
-        };
-        setTransactions(prevTransactions => {
-            const updatedTransactions = [...prevTransactions, transaction];
-            localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
-            return updatedTransactions;
+        const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+            if (user) {
+            setUser(user);
+            } else {
+            setUser(null);
+            router.push("/"); 
+            }
         });
+    return () => unsubscribe();
+    }, [router]);
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            if (user) {
+                const q = query(collection(db, "transactions"), where("uid", "==", user.uid), orderBy("date", "desc"));
+                const querySnapshot = await getDocs(q);
+                const transactions = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+                } as Transaction));
+                setTransactions(transactions);
+            }
+        };
+        fetchTransactions();
+    }, [user]);
+
+    const handleAddTransaction = async (newTransaction: Omit<Transaction, 'id' | 'date' | 'uid'>) => {
+        if (user) {
+            const transactionData = {
+                ...newTransaction,
+                date: new Date().toISOString().split('T')[0],
+                uid: user.uid,
+            };
+            const docRef = await addDoc(collection(db, "transactions"), transactionData);
+            setTransactions(prevTransactions => [...prevTransactions, { id: docRef.id, ...transactionData }]);
+        }
     };
 
-    const handleDeleteTransaction = (id: number) => {
+    const handleDeleteTransaction = async (id: string) => {
+        await deleteDoc(doc(db, "transactions", id));
+
         setTransactions(prevTransactions => {
             const updatedTransactions = prevTransactions.filter(t => t.id !== id);
-            localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
             return updatedTransactions;
         });
     };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Transaction } from '../types/index';
 
 interface Props {
-    onAddTransaction: (transaction: Omit<Transaction, 'id' | 'date'>) => void;
+    onAddTransaction: (transaction: Omit<Transaction, 'id' | 'date'| 'uid'>) => void;
 }
 
 const TransactionForm: React.FC<Props> = ({ onAddTransaction }) => {
@@ -16,7 +16,7 @@ const TransactionForm: React.FC<Props> = ({ onAddTransaction }) => {
         type,
         amount: parseFloat(amount),
         description
-        // 'id' 和 'date' 會在父組件中添加，因此不需要在這裡提供
+        // 'id', 'uid', 'date' 會在父組件中添加，因此不需要在這裡提供
         });
         setAmount('');
         setDescription('');

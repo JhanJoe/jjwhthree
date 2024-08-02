@@ -5,6 +5,7 @@ import Link from "next/link";
 import "./styles/page.css";
 import "./styles/accounting_page.css";
 import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, User, signOut } from "../../firebase-config";
+import { useRouter } from "next/navigation";
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -12,6 +13,7 @@ const HomePage: React.FC = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
@@ -19,11 +21,12 @@ const HomePage: React.FC = () => {
         setUser(user);
       } else {
         setUser(null);
+        router.push("/");
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router]);
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();

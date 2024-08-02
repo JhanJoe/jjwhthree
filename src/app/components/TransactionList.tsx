@@ -3,7 +3,7 @@ import { Transaction } from '../types/index';
 
 interface Props {
     transactions: Transaction[];
-    onDeleteTransaction: (id: number) => void;
+    onDeleteTransaction: (id: string) => void;
 }
 
 const TransactionList: React.FC<Props> = ({ transactions, onDeleteTransaction }) => {
