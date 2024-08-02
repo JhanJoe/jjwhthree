@@ -7,7 +7,7 @@ import TransactionList from '../components/TransactionList';
 import { Transaction } from '../types/index';
 import '../styles/accounting_page.css';
 import { useRouter } from "next/navigation";
-import { auth, onAuthStateChanged, db, collection, addDoc, getDocs, query, where, deleteDoc, doc, orderBy, User } from "../../../firebase-config";
+import { auth, onAuthStateChanged, db, collection, addDoc, getDocs, query, where, deleteDoc, doc, User, orderBy } from "../../../firebase-config";
 
 const AccountingPage: React.FC = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -37,6 +37,7 @@ const AccountingPage: React.FC = () => {
                 id: doc.id,
                 ...doc.data()
                 } as Transaction));
+
                 setTransactions(transactions);
             }
         };
