@@ -111,6 +111,7 @@
     .transaction-form input {
         transition:max-width 1s ease;
     }
+
 }
 
 @media screen and (max-width: 500px) {
